@@ -3,8 +3,11 @@ name: PetStore CI/CD
 on:
   push:
     branches:
-      - master  # Define which branch triggers the workflow
-
+      - main
+  pull_request:
+    branches:
+      - main
+  workflow_dispatch: null
 jobs:
   build-and-test:
     runs-on: ubuntu-latest
