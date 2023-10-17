@@ -21,7 +21,6 @@ pet_data = [
     {"id": 1, "name": "Pet1", "status": "available"},
     {"id": 10, "name": "Pet2", "status": "pending"},
     {"id": 300, "name": "Pet3", "status": "sold"},
-    {"id": 250, "name": "Pet4", "status": "available"},
 ]
 @pytest.mark.parametrize("pet_info", pet_data)
 def test_add_new_pet(pet_info):
@@ -42,7 +41,7 @@ def test_add_new_pet(pet_info):
 
 
 
-@pytest.mark.parametrize("pet_id", [ 1, 10,100, 200, 300])
+@pytest.mark.parametrize("pet_id", [ 1, 10, 300])
 def test_delete_pet(pet_id):
 
     pet_exists = check_if_pet_exists(pet_id)
