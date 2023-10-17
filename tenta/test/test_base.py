@@ -18,8 +18,8 @@ def check_if_pet_exists(pet_id):
         return False
 
 pet_data = [
-    {"id": 1, "name": "Pet1", "status": "available"},
-    {"id": 10, "name": "Pet2", "status": "pending"},
+    {"id": 1001, "name": "Pet1", "status": "available"},
+    {"id": 1024, "name": "Pet2", "status": "pending"},
     {"id": 300, "name": "Pet3", "status": "sold"},
 ]
 @pytest.mark.parametrize("pet_info", pet_data)
