@@ -1,0 +1,42 @@
+name: PetStore CI/CD
+
+on:
+  push:
+    branches:
+      - master  # Define which branch triggers the workflow
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2  # Check out your repository's code
+
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.8
+
+      - name: Start PetStore Container
+        run: |
+          docker pull systemverification/petstore-syve
+          docker run -d -p 80:8080 systemverification/petstore-syve
+          sleep 10  # Wait for the PetStore container to start
+
+      - name: Run PyTest
+        run: |
+          pip install pytest
+          pytest --base-url http://localhost:80/api/v3 tests/
+
+      - name: Push to Docker Registry
+        if: success()
+        env:
+          DOCKER_REGISTRY: judevopsexam.azurecr.io
+          DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
+          DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
+        run: |
+          docker pull systemverification/petstore-syve
+          docker tag systemverification/petstore-syve $DOCKER_REGISTRY/petstore-your-name:latest
+          echo $DOCKER_PASSWORD | docker login -u $DOCKER_USERNAME --password-stdin $DOCKER_REGISTRY
+          docker push $DOCKER_REGISTRY/petstore-your-name:latest
