@@ -30,7 +30,7 @@ jobs:
       - name: Run PyTest
         run: |
           pip install pytest
-          pytest --base-url http://localhost:80/api/v3 tests/
+          pytest 
 
       - name: Push to Docker Registry
         if: success()
