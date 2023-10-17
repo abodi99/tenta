@@ -37,7 +37,7 @@ jobs:
         if: success()
         env:
           DOCKER_REGISTRY: judevopsexam.azurecr.io
-          DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
+          DOCKER_USERNAME: judevopsexamtoken
           DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
         run: |
           docker pull systemverification/petstore-syve
