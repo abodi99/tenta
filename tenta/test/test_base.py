@@ -31,12 +31,13 @@ def test_delete_pet():
     assert response.status_code == 200
 
     # Optionally, you can check if the pet has been deleted by trying to retrieve it.
-    verify_deleted_response = requests.get(f"{BASE_URL}/pet/{pet_id_to_delete}")
+    verify_deleted_response = requests.get(f"{BASE_URL}/pet/123")
     assert verify_deleted_response.status_code == 404
 
 
-def test_find_pets_by_status():
-    response = requests.get(f"{BASE_URL}/pet/findByStatus?status=available")
+@pytest.mark.parametrize("status", ["available", "pending", "sold"])
+def test_find_pets_by_status(status):
+    response = requests.get(f"{BASE_URL}/pet/findByStatus?status={status}")
 
     # Check if the response status code is 200, indicating a successful request.
     assert response.status_code == 200
