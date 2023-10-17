@@ -30,6 +30,7 @@ jobs:
       - name: Run PyTest
         run: |
           pip install pytest
+          pip install request
           pytest 
 
       - name: Push to Docker Registry
